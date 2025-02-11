@@ -11,7 +11,7 @@ find_package(Boost REQUIRED COMPONENTS program_options)
 find_package(boost_plugin_loader REQUIRED)
 find_package(noether_tpp REQUIRED)
 find_package(PCL REQUIRED COMPONENTS io surface)
-find_package(Qt5 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 find_package(yaml-cpp REQUIRED)
 
 option(NOETHER_ENABLE_CLANG_TIDY "Enables compilation with clang-tidy" OFF)
@@ -75,7 +75,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:include>")
 target_include_directories(${PROJECT_NAME} PRIVATE "$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>")
-target_link_libraries(${PROJECT_NAME} PUBLIC noether::noether_tpp Qt5::Widgets ${PCL_LIBRARIES} boost_plugin_loader::boost_plugin_loader Eigen3::Eigen yaml-cpp)
+target_link_libraries(${PROJECT_NAME} PUBLIC noether::noether_tpp Qt6::Widgets ${PCL_LIBRARIES} boost_plugin_loader::boost_plugin_loader Eigen3::Eigen yaml-cpp)
 target_compile_definitions(${PROJECT_NAME}
   PUBLIC
     NOETHER_GUI_PLUGINS="${PROJECT_NAME}_plugins"
@@ -97,7 +97,7 @@ target_code_coverage(${PROJECT_NAME} INTERFACE ALL ENABLE ${NOETHER_ENABLE_TESTI
 # Plugin Implementation Library
 add_library(${PROJECT_NAME}_plugins SHARED
   src/plugins.cpp)
-target_link_libraries(${PROJECT_NAME}_plugins PUBLIC ${PROJECT_NAME} Qt5::Widgets yaml-cpp)
+target_link_libraries(${PROJECT_NAME}_plugins PUBLIC ${PROJECT_NAME} Qt6::Widgets yaml-cpp)
 target_compile_definitions(${PROJECT_NAME}_plugins PRIVATE NOETHER_GUI_PLUGINS="${PROJECT_NAME}_plugins")
 target_cxx_version(${PROJECT_NAME}_plugins PUBLIC VERSION 14)
 target_clang_tidy(${PROJECT_NAME}_plugins
@@ -127,7 +127,7 @@ configure_package(
     boost_plugin_loader
     noether_tpp
     "PCL REQUIRED COMPONENTS io surface"
-    "Qt5 REQUIRED COMPONENTS Widgets"
+    "Qt6 REQUIRED COMPONENTS Widgets"
     yaml-cpp
 )
 
